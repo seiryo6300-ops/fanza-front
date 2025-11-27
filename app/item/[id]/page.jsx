@@ -66,8 +66,8 @@ export default function ItemDetail({ params }) {
             </div>
           )}
 
-          <a
-            href={item.URL}
+         <a href={`/item/${item.content_id}`} className="card-link">
+
             target="_blank"
             className="detail-buy-button"
           >
