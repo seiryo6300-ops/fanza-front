@@ -73,11 +73,12 @@ export default function Home() {
               borderRadius: "6px",
             }}
           >
-            <img
-              src={item.images?.large}
-              alt={item.title}
-              style={{ width: "100%", borderRadius: "6px" }}
-            />
+           const img =
+  item.images?.large ||
+  item.images?.list ||
+  item.images?.small ||
+  "/noimage.png";
+
 
             <p style={{ fontWeight: "bold", fontSize: "14px", marginTop: "10px" }}>
               {item.title}
