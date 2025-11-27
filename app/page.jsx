@@ -1,89 +1,152 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+const DEFAULT_KEYWORD = "HUNT";
+
+// 画像URLをいい感じに拾うユーティリティ
+function getImageUrl(item) {
+  const img = item.imageURL || {};
+  return img.large || img.list || img.small || "/noimage.png";
+}
 
 export default function Home() {
-  const [keyword, setKeyword] = useState("HUNT");
+  const [keyword, setKeyword] = useState(DEFAULT_KEYWORD);
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // ⭐ トップページはランダム表示
-  useEffect(() => {
-    loadRandom();
-  }, []);
-
-  async function loadRandom() {
+  // ランダム取得（トップ表示用）
+  const fetchRandom = async () => {
     try {
+      setLoading(true);
+      setError("");
+
       const res = await fetch("/api/fanza/random");
-      const json = await res.json();
-
-      if (!json.result || !json.result.items) return;
-
-      setResults(json.result.items);
-    } catch (e) {
-      console.error("Random error:", e);
-    }
-  }
-
-  // ⭐ 検索
-  const search = async () => {
-    try {
-      const res = await fetch(`/api/fanza?keyword=${keyword}`);
-      const json = await res.json();
-
-      if (!json.result || !json.result.items) {
-        alert("検索結果がありません");
-        return;
+      if (!res.ok) {
+        throw new Error("ランダム取得に失敗しました");
       }
 
-      setResults(json.result.items);
-    } catch (e) {
-      console.error(e);
+      const json = await res.json();
+      // DMM/FANZA のレスポンス形式: { result: { items: [...] } }
+      setResults(json.result?.items || []);
+    } catch (err) {
+      console.error(err);
+      setError(err.message ?? "エラーが発生しました");
+      setResults([]);
+    } finally {
+      setLoading(false);
     }
   };
 
+  // 検索
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    const q = keyword.trim() || DEFAULT_KEYWORD;
+
+    try {
+      setLoading(true);
+      setError("");
+
+      const res = await fetch(
+        `/api/fanza?keyword=${encodeURIComponent(q)}`
+      );
+      if (!res.ok) {
+        throw new Error("検索に失敗しました");
+      }
+
+      const json = await res.json();
+      setResults(json.result?.items || []);
+    } catch (err) {
+      console.error(err);
+      setError(err.message ?? "エラーが発生しました");
+      setResults([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // 初回マウント時にランダム表示
+  useEffect(() => {
+    fetchRandom();
+  }, []);
+
   return (
-    <div style={{ padding: "30px" }}>
-      <h1>FANZA API 結果</h1>
+    <main className="page">
+      {/* ヘッダー & 検索フォーム */}
+      <header className="page-header">
+        <h1 className="page-title">FANZA API 結果</h1>
 
-      <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-        <input
-          value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
-          style={{ padding: "8px", width: "250px" }}
-        />
-        <button onClick={search} style={{ padding: "8px" }}>
-          検索
-        </button>
-      </div>
+        <form className="search-form" onSubmit={handleSearch}>
+          <input
+            className="search-input"
+            type="text"
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            placeholder="キーワードを入力"
+          />
+          <button className="search-button" type="submit">
+            検索
+          </button>
+        </form>
+      </header>
 
-      {/* 結果表示 */}
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "25px",
-        }}
-      >
-        {results.map((item, i) => (
-          <div
-            key={i}
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              borderRadius: "6px",
-            }}
-          >
-           const img =
-  item.images?.large ||
-  item.images?.list ||
-  item.images?.small ||
-  "/noimage.png";
+      {/* 状態表示 */}
+      {loading && <p className="info-text">読み込み中...</p>}
+      {error && <p className="error-text">エラー: {error}</p>}
 
+      {/* 結果一覧 */}
+      {!loading && !error && (
+        <>
+          {results.length === 0 ? (
+            <p className="info-text">データがありません。</p>
+          ) : (
+            <section className="cards-grid">
+              {results.map((item) => {
+                const imgSrc = getImageUrl(item);
 
-            <p style={{ fontWeight: "bold", fontSize: "14px", marginTop: "10px" }}>
-              {item.title}
-            </p>
-          </div>
+                return (
+                  <article
+                    key={item.content_id}
+                    className="card"
+                  >
+                    <a
+                      href={item.URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="card-link"
+                    >
+                      <div className="card-thumb">
+                        <img
+                          src={imgSrc}
+                          alt={item.title}
+                          onError={(e) => {
+                            e.currentTarget.src = "/noimage.png";
+                          }}
+                        />
+                      </div>
+
+                      <div className="card-body">
+                        <h2 className="card-title">
+                          {item.title}
+                        </h2>
+
+                        {/* ここに必要なら価格やジャンルなどを追加できます */}
+                        {/* 例: <p className="card-meta">{item.date}</p> */}
+                      </div>
+                    </a>
+                  </article>
+                );
+              })}
+            </section>
+          )}
+        </>
+      )}
+    </main>
+  );
+}
+
         ))}
       </div>
     </div>
