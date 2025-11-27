@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const DEFAULT_KEYWORD = "HUNT";
 
-// 画像URLをいい感じに拾うユーティリティ
+// 画像URLを取得する関数
 function getImageUrl(item) {
   const img = item.imageURL || {};
   return img.large || img.list || img.small || "/noimage.png";
@@ -16,19 +16,16 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // ランダム取得（トップ表示用）
+  // ランダム取得（トップ表示）
   const fetchRandom = async () => {
     try {
       setLoading(true);
       setError("");
 
       const res = await fetch("/api/fanza/random");
-      if (!res.ok) {
-        throw new Error("ランダム取得に失敗しました");
-      }
+      if (!res.ok) throw new Error("ランダム取得に失敗しました");
 
       const json = await res.json();
-      // DMM/FANZA のレスポンス形式: { result: { items: [...] } }
       setResults(json.result?.items || []);
     } catch (err) {
       console.error(err);
@@ -49,12 +46,8 @@ export default function Home() {
       setLoading(true);
       setError("");
 
-      const res = await fetch(
-        `/api/fanza?keyword=${encodeURIComponent(q)}`
-      );
-      if (!res.ok) {
-        throw new Error("検索に失敗しました");
-      }
+      const res = await fetch(`/api/fanza?keyword=${encodeURIComponent(q)}`);
+      if (!res.ok) throw new Error("検索に失敗しました");
 
       const json = await res.json();
       setResults(json.result?.items || []);
@@ -67,36 +60,31 @@ export default function Home() {
     }
   };
 
-  // 初回マウント時にランダム表示
+  // 初回ロードでランダム表示
   useEffect(() => {
     fetchRandom();
   }, []);
 
   return (
     <main className="page">
-      {/* ヘッダー & 検索フォーム */}
+      {/* ヘッダー */}
       <header className="page-header">
         <h1 className="page-title">FANZA API 結果</h1>
 
         <form className="search-form" onSubmit={handleSearch}>
           <input
             className="search-input"
-            type="text"
             value={keyword}
             onChange={(e) => setKeyword(e.target.value)}
             placeholder="キーワードを入力"
           />
-          <button className="search-button" type="submit">
-            検索
-          </button>
+          <button className="search-button">検索</button>
         </form>
       </header>
 
-      {/* 状態表示 */}
       {loading && <p className="info-text">読み込み中...</p>}
       {error && <p className="error-text">エラー: {error}</p>}
 
-      {/* 結果一覧 */}
       {!loading && !error && (
         <>
           {results.length === 0 ? (
@@ -107,10 +95,7 @@ export default function Home() {
                 const imgSrc = getImageUrl(item);
 
                 return (
-                  <article
-                    key={item.content_id}
-                    className="card"
-                  >
+                  <article key={item.content_id} className="card">
                     <a
                       href={item.URL}
                       target="_blank"
@@ -121,19 +106,14 @@ export default function Home() {
                         <img
                           src={imgSrc}
                           alt={item.title}
-                          onError={(e) => {
-                            e.currentTarget.src = "/noimage.png";
-                          }}
+                          onError={(e) =>
+                            (e.currentTarget.src = "/noimage.png")
+                          }
                         />
                       </div>
 
                       <div className="card-body">
-                        <h2 className="card-title">
-                          {item.title}
-                        </h2>
-
-                        {/* ここに必要なら価格やジャンルなどを追加できます */}
-                        {/* 例: <p className="card-meta">{item.date}</p> */}
+                        <h2 className="card-title">{item.title}</h2>
                       </div>
                     </a>
                   </article>
@@ -144,11 +124,5 @@ export default function Home() {
         </>
       )}
     </main>
-  );
-}
-
-        ))}
-      </div>
-    </div>
   );
 }
