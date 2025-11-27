@@ -18,28 +18,63 @@ export default function Home() {
   };
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div style={{ padding: "20px", maxWidth: "1000px", margin: "0 auto" }}>
       <h1>FANZA API 結果</h1>
 
-      <input
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-        placeholder="検索ワード"
-        style={{ padding: "8px" }}
-      />
-      <button onClick={search} style={{ marginLeft: "10px" }}>
-        検索
-      </button>
+      {/* 検索ボックス */}
+      <div style={{ marginBottom: "20px" }}>
+        <input
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+          placeholder="検索ワード"
+          style={{
+            padding: "10px",
+            width: "250px",
+            fontSize: "16px",
+          }}
+        />
+        <button
+          onClick={search}
+          style={{
+            padding: "10px 20px",
+            marginLeft: "10px",
+            fontSize: "16px",
+            cursor: "pointer",
+          }}
+        >
+          検索
+        </button>
+      </div>
 
-      <div style={{ marginTop: "20px" }}>
+      {/* カード一覧（グリッド） */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+          gap: "20px",
+        }}
+      >
         {results.map((item) => (
-          <div key={item.content_id} style={{ marginBottom: "40px" }}>
+          <div
+            key={item.content_id}
+            style={{
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              padding: "10px",
+              background: "#fff",
+            }}
+          >
             <img
               src={item.imageURL.large}
               alt="thumbnail"
-              style={{ width: "200px" }}
+              style={{
+                width: "100%",
+                borderRadius: "6px",
+              }}
             />
-            <p>{item.title}</p>
+            <p style={{ marginTop: "10px", fontSize: "14px", lineHeight: "1.4" }}>
+              {item.title}
+            </p>
           </div>
         ))}
       </div>
