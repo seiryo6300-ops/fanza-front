@@ -126,3 +126,13 @@ export default function Home() {
     </main>
   );
 }
+
+<div className="card-genres">
+  {item.genre?.map((g) => (
+    <a key={g.name}
+       href={`/genre/${g.name}`}
+       className="genre-tag">
+      {g.name}
+    </a>
+  ))}
+</div>
