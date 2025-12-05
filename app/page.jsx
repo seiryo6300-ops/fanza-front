@@ -34,9 +34,7 @@ export default function Home() {
               </div>
               <div className="card-body">
                 <h2 className="card-title">{item.title}</h2>
-                <p className="card-meta">
-                  {item.year}年頃 / {item.maker}
-                </p>
+                <p className="card-meta">{item.year}年頃 / {item.maker}</p>
               </div>
             </a>
 
