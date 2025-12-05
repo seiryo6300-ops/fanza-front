@@ -11,6 +11,7 @@ function getImageUrl(item) {
 }
 
 export default function Home() {
+  const items = fanzaData;
   const [keyword, setKeyword] = useState(DEFAULT_KEYWORD);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
