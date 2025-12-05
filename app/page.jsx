@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { fanzaData } from "./data/retroData";
 
 const DEFAULT_KEYWORD = "HUNT";
 
