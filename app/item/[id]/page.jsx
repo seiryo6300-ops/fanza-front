@@ -1,6 +1,6 @@
 "use client";
 
-import { fanzaData } from "@/app/data/retroData";
+import { fanzaData } from "../../data/retroData";
 
 export default function ItemDetail({ params }) {
   const id = params.id;
