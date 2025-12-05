@@ -2,6 +2,8 @@ export const fanzaData = [
   {
     id: "mix_2003_01",
     title: "2003頃・懐かし熟女ドラマ（仮）",
+    static: true,
+
     year: 2003,
     category: ["mature", "nostalgic"],
     people: ["女優A"],
@@ -15,6 +17,8 @@ export const fanzaData = [
   {
     id: "wife_2008_01",
     title: "2008頃・若妻禁断ドラマ（仮）",
+    static: true,
+
     year: 2008,
     category: ["wife"],
     people: ["女優B"],
@@ -28,6 +32,8 @@ export const fanzaData = [
   {
     id: "mix_2005_01",
     title: "2005頃・人妻×熟女総集編（仮）",
+    static: true,
+
     year: 2005,
     category: ["mature","wife","nostalgic"],
     people: ["女優C", "女優D"],
