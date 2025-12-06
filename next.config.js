@@ -21,3 +21,18 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
+
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pics.dmm.co.jp",
+      },
+    ],
+    unoptimized: true, // これ重要！
+  },
+};
+
+module.exports = nextConfig;
+
