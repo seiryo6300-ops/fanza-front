@@ -1,40 +1,16 @@
 // app/data/retroData.js
 
 export const fanzaData = [
-  {
-    id: "jukujo_2003_01",
-    title: "2003年頃・懐かし熟女ドラマ（サンプル）",
-    year: 2003,
-    maker: "サンプルレーベルA",
-    static: true, // ← APIを使わないので cozy-001 が付きます
-    cover: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ffr6PwAFkwKXnH3fywAAAABJRU5ErkJggg==",
+ {
+  id: "nostal_2003",
+  title: "懐かし熟女デビュー作",
+  year: 2003,
+  maker: "S1",
+  static: true,
+  cover: "https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
+  category: ["mature"],
+  people: ["女優A"],
+  url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00001/",
+}
 
-    category: ["mature", "nostalgic"],
-    people: ["女優A"],
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=xxxx001/",
-  },
-  {
-    id: "wife_2008_01",
-    title: "2008年頃・若妻NTRストーリー（サンプル）",
-    year: 2008,
-    maker: "サンプルレーベルB",
-    static: true,
-   cover: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ffr6PwAFkwKXnH3fywAAAABJRU5ErkJggg==",
-
-    category: ["wife"],
-    people: ["女優B"],
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=xxxx002/",
-  },
-  {
-    id: "mix_2005_01",
-    title: "2005年頃・人妻と熟女の共演（サンプル）",
-    year: 2005,
-    maker: "サンプルレーベルC",
-    static: true,
-    cover: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ffr6PwAFkwKXnH3fywAAAABJRU5ErkJggg==",
-
-    category: ["mature", "wife", "nostalgic"],
-    people: ["女優C", "女優D"],
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=xxxx003/",
-  },
 ];
