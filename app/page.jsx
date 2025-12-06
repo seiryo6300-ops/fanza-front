@@ -27,13 +27,14 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className="card-thumb">
-                <Image
-                  src={item.cover}
-                  alt={item.title}
-                  width={400}
-                  height={560}
-                  unoptimized
-                />
+               <Image
+  src={`/api/proxy?url=${encodeURIComponent(item.cover)}`}
+  alt={item.title}
+  width={400}
+  height={560}
+  unoptimized
+/>
+
               </div>
 
               <div className="card-body">
