@@ -1,5 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    API_ID: process.env.API_ID,
+    AFFILIATE_ID: process.env.AFFILIATE_ID,
+  },
   images: {
     remotePatterns: [
       {
@@ -13,7 +17,7 @@ const nextConfig = {
         pathname: "/**",
       }
     ],
-    unoptimized: true, // これ重要！
+    unoptimized: true,
   },
 };
 
