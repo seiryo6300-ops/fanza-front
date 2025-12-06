@@ -1,35 +1,35 @@
-export const fanzaData = [
+export const retroData = [
   {
     id: "nostal_2003",
-    title: "懐かし混浴温泉ドラマ特集",
+    title: "2003年頃・懐かし混浴温泉ドラマ",
     year: 2003,
     maker: "S1",
-    static: true,
-    cover: "https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
-    category: ["mature"],
+    category: ["熟女", "ドラマ"],
     people: ["女優A"],
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00001/",
+    cover: "https://pics.dmm.co.jp/digital/video/1sod00001/1sod00001pl.jpg",
+    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1sod00001/",
+    static: true
   },
   {
     id: "nostal_2005",
-    title: "人妻と巨乳レジェンド共演",
+    title: "2005年頃・人妻と巨乳レジェンド共演",
     year: 2005,
-    maker: "SOD",
-    static: true,
-    cover: "https://pics.dmm.co.jp/digital/video/1stars00002/1stars00002pl.jpg",
-    category: ["mature"],
-    people: ["女優B"],
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00002/",
+    maker: "Madonna",
+    category: ["人妻", "共演"],
+    people: ["女優B", "女優C"],
+    cover: "https://pics.dmm.co.jp/digital/video/1mad00001/1mad00001pl.jpg",
+    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1mad00001/",
+    static: true
   },
   {
     id: "nostal_2008",
-    title: "若妻NTRベスト",
+    title: "2008年頃・若妻NTRベスト",
     year: 2008,
-    maker: "Madonna",
-    static: true,
-    cover: "https://pics.dmm.co.jp/digital/video/1stars00003/1stars00003pl.jpg",
-    category: ["人妻"],
-    people: ["女優C"],
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00003/",
+    maker: "Attackers",
+    category: ["人妻", "NTR"],
+    people: ["女優X"],
+    cover: "https://pics.dmm.co.jp/digital/video/1atk00001/1atk00001pl.jpg",
+    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1atk00001/",
+    static: true
   }
 ];
