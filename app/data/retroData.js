@@ -7,7 +7,8 @@ export const fanzaData = [
     year: 2003,
     maker: "サンプルレーベルA",
     static: true, // ← APIを使わないので cozy-001 が付きます
-    cover: "https://via.placeholder.com/400x560/902950/ffffff?text=Jukujo+2003",
+    cover: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ffr6PwAFkwKXnH3fywAAAABJRU5ErkJggg==",
+
     category: ["mature", "nostalgic"],
     people: ["女優A"],
     url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=xxxx001/",
@@ -18,7 +19,8 @@ export const fanzaData = [
     year: 2008,
     maker: "サンプルレーベルB",
     static: true,
-    cover: "https://via.placeholder.com/400x560/702045/ffffff?text=Wife+2008",
+   cover: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ffr6PwAFkwKXnH3fywAAAABJRU5ErkJggg==",
+
     category: ["wife"],
     people: ["女優B"],
     url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=xxxx002/",
@@ -29,7 +31,8 @@ export const fanzaData = [
     year: 2005,
     maker: "サンプルレーベルC",
     static: true,
-    cover: "https://via.placeholder.com/400x560/5b2140/ffffff?text=Mix+2005",
+    cover: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mO8ffr6PwAFkwKXnH3fywAAAABJRU5ErkJggg==",
+
     category: ["mature", "wife", "nostalgic"],
     people: ["女優C", "女優D"],
     url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=xxxx003/",
