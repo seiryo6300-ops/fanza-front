@@ -2,8 +2,8 @@
 const nextConfig = {
   images: {
     domains: [
-      "pics.dmm.co.jp", 
-      "www.dmm.co.jp"
+      "pics.dmm.co.jp",
+      "www.dmm.co.jp",
     ],
     remotePatterns: [
       {
@@ -17,22 +17,8 @@ const nextConfig = {
         pathname: "/**",
       },
     ],
+    unoptimized: true,  // ← これが最重要！
   },
 };
 
 module.exports = nextConfig;
-
-const nextConfig = {
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "pics.dmm.co.jp",
-      },
-    ],
-    unoptimized: true, // これ重要！
-  },
-};
-
-module.exports = nextConfig;
-
