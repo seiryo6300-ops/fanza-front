@@ -1,4 +1,5 @@
 "use client";
+import { retroData } from "./data/retroData";
 
 export default function Home() {
   return (
@@ -9,7 +10,28 @@ export default function Home() {
       </header>
 
       <section className="cards-grid">
-        <p>ここに作品一覧が表示されます（今は整理中）</p>
+        {retroData.map((item) => (
+          <article key={item.id} className="card">
+            <a
+              href={
+                item.url +
+                (item.url.includes("?") ? "&" : "?") +
+                `affid=${item.static ? "cozy-001" : "cozy-990"}`
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-link"
+            >
+              <div className="card-thumb">
+                <img src={item.cover} alt={item.title} />
+              </div>
+              <div className="card-body">
+                <h2 className="card-title">{item.title}</h2>
+                <p>{item.year}年 / {item.maker}</p>
+              </div>
+            </a>
+          </article>
+        ))}
       </section>
     </main>
   );
