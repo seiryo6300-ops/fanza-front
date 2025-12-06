@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { fanzaData } from "./data/retroData";
 
 export default function Home() {
@@ -26,12 +27,15 @@ export default function Home() {
               rel="noopener noreferrer"
             >
               <div className="card-thumb">
-                <img
+                <Image
                   src={item.cover}
                   alt={item.title}
-                  onError={(e) => (e.currentTarget.src = "/noimage.png")}
+                  width={400}
+                  height={560}
+                  unoptimized
                 />
               </div>
+
               <div className="card-body">
                 <h2 className="card-title">{item.title}</h2>
                 <p className="card-meta">{item.year}年頃 / {item.maker}</p>
