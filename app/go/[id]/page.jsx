@@ -7,7 +7,10 @@ export default function ItemPage({ params }) {
   useEffect(() => {
     fetch(`/api/search?id=${params.id}`)
       .then((res) => res.json())
-      .then((data) => setItem(data.result.items[0]))
+      .then((data) => {
+        console.log("API結果:", data);
+        setItem(data.item); // ← これに変更
+      })
       .catch((e) => console.error("API Error:", e));
   }, [params.id]);
 
@@ -21,7 +24,8 @@ export default function ItemPage({ params }) {
   return (
     <div style={{ padding: "20px" }}>
       <h1>{item.title}</h1>
-      <img src={img} alt={item.title} width="300" />
+
+      {img && <img src={img} alt={item.title} width="300" />}
 
       <h2>サンプル画像（小）</h2>
       {sampleSmall.map((src, i) => (
