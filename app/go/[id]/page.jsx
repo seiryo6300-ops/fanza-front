@@ -1,99 +1,42 @@
 "use client";
-
 import { useEffect, useState } from "react";
 
-export default function DetailPage({ params }) {
+export default function ItemPage({ params }) {
   const [item, setItem] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const res = await fetch(`/api/search?id=${params.id}`);
-        const data = await res.json();
-
-        if (data?.result?.items?.length > 0) {
-          setItem(data.result.items[0]);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-      setLoading(false);
-    }
-    load();
+    fetch(`/api/search?id=${params.id}`)
+      .then((res) => res.json())
+      .then((data) => setItem(data.result.items[0]));
   }, [params.id]);
 
-  if (loading) return <p>読み込み中...</p>;
-  if (!item) return <p>作品データが見つかりません</p>;
+  if (!item) return <h2>読み込み中...</h2>;
+
+  const img = item.imageURL.large;
+  const sampleSmall = item.sampleImageURL?.sample_s?.image || [];
+  const sampleLarge = item.sampleImageURL?.sample_l?.image || [];
+  const sampleMovie = item.sampleMovieURL?.size_720_480;
 
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "20px" }}>
+    <div style={{ padding: "20px" }}>
       <h1>{item.title}</h1>
 
-      <img
-        src={item.imageURL.large}
-        alt={item.title}
-        style={{
-          width: "100%",
-          borderRadius: "12px",
-          boxShadow: "0 4px 12px rgba(0,0,0,0.2)"
-        }}
-      />
+      <img src={img} alt={item.title} width="320" />
 
-      <p style={{ marginTop: "15px" }}>
-        <strong>発売日：</strong> {item.date}
-      </p>
+      <h3>サンプル画像（小）</h3>
+      {sampleSmall.map((s, i) => (
+        <img key={i} src={s} width="160" style={{ margin: "5px" }} />
+      ))}
 
-      <p>
-        <strong>メーカー：</strong>
-        {item.iteminfo?.maker?.map((m) => m.name).join(" / ")}
-      </p>
+      <h3>サンプル画像（大）</h3>
+      {sampleLarge.map((s, i) => (
+        <img key={i} src={s} width="320" style={{ margin: "5px" }} />
+      ))}
 
-      <p>
-        <strong>出演：</strong>
-        {item.iteminfo?.actress?.map((a) => a.name).join(" / ")}
-      </p>
-
-      <p>
-        <strong>ジャンル：</strong>
-        {item.iteminfo?.genre?.map((g) => g.name).join(" / ")}
-      </p>
-
-      <a
-        href={item.affiliateURL}
-        target="_blank"
-        style={{
-          display: "block",
-          marginTop: "20px",
-          background: "#E60033",
-          color: "white",
-          padding: "14px 20px",
-          borderRadius: "8px",
-          fontWeight: "bold",
-          textAlign: "center",
-          textDecoration: "none"
-        }}
-      >
-        FANZAで作品を見る
-      </a>
-
-      {/* サンプル画像（小） */}
-      {item.sampleImageURL?.sample_s?.image?.length > 0 && (
+      {sampleMovie && (
         <>
-          <h2 style={{ marginTop: "30px" }}>サンプル画像</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
-            {item.sampleImageURL.sample_s.image.map((src, i) => (
-              <img
-                key={i}
-                src={src}
-                alt={`sample-${i}`}
-                style={{
-                  width: "120px",
-                  borderRadius: "6px"
-                }}
-              />
-            ))}
-          </div>
+          <h3>サンプル動画</h3>
+          <video width="480" controls src={sampleMovie}></video>
         </>
       )}
     </div>
