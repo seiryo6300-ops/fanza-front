@@ -1,38 +1,56 @@
 "use client";
-import { retroData } from "./data/retroData";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function ItemPage({ params }) {
+  const [item, setItem] = useState(null);
+
+  useEffect(() => {
+    fetch(`/api/search?cid=${params.id}`)
+      .then(res => res.json())
+      .then(data => setItem(data.result.items[0]));
+  }, [params.id]);
+
+  if (!item) return <h2>読み込み中...</h2>;
+
+  const img = item.imageURL.large;
+  const sampleSmall = item.sampleImageURL?.sample_s?.image || [];
+  const sampleLarge = item.sampleImageURL?.sample_l?.image || [];
+  const sampleMovie = item.sampleMovieURL?.size_720_480;
+
   return (
-    <main className="page">
-      <header className="page-header">
-        <h1 className="page-title">2000〜2010年代アーカイブ</h1>
-        <p className="page-sub">熟女・人妻・懐かし黄金期コレクション</p>
-      </header>
+    <main style={{ padding: "20px" }}>
+      <h1>{item.title}</h1>
+      <img src={`/api/proxy?url=${img}`} style={{ width: "300px", borderRadius: "10px" }} />
 
-      <section className="cards-grid">
-        {retroData.map((item) => (
-          <article key={item.id} className="card">
-            <a
-              href={
-                item.url +
-                (item.url.includes("?") ? "&" : "?") +
-                `affid=${item.static ? "cozy-001" : "cozy-990"}`
-              }
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card-link"
-            >
-              <div className="card-thumb">
-                <img src={item.cover} alt={item.title} />
-              </div>
-              <div className="card-body">
-                <h2 className="card-title">{item.title}</h2>
-                <p>{item.year}年 / {item.maker}</p>
-              </div>
-            </a>
-          </article>
+      <h2>サンプル画像</h2>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "10px" }}>
+        {sampleSmall.map((src, i) => (
+          <img key={i} src={`/api/proxy?url=${src}`} style={{ width: "100%" }} />
         ))}
-      </section>
+      </div>
+
+      <h2>サンプル動画</h2>
+      {sampleMovie ? (
+        <video
+          src={`/api/proxy?url=${sampleMovie}`}
+          controls
+          style={{ width: "100%", maxWidth: "600px", marginTop: "15px" }}
+        />
+      ) : (
+        <p>サンプル動画はありません</p>
+      )}
+
+      <h3>ジャンル</h3>
+      <p>{item.iteminfo.genre.map(g => g.name).join(" / ")}</p>
+
+      <h3>出演</h3>
+      <p>{item.iteminfo.actress.map(a => a.name).join(" / ")}</p>
+
+      <h3>メーカー</h3>
+      <p>{item.iteminfo.maker[0].name}</p>
+
+      <br />
+      <a href="/" style={{ color: "blue" }}>← 一覧へ戻る</a>
     </main>
   );
 }
