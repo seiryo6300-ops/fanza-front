@@ -6,9 +6,9 @@ export const retroData = [
     maker: "S1",
     category: ["熟女", "ドラマ"],
     people: ["女優A"],
-    cover: "https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1sod00001/",
-    static: true,
+    cover: "/api/proxy?url=https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
+    url: "https://www.dmm.co.jp/digital/video/-/detail/=/cid=1sod00001/",
+    static: true
   },
   {
     id: "nostal_2005",
@@ -17,9 +17,9 @@ export const retroData = [
     maker: "Madonna",
     category: ["人妻", "共演"],
     people: ["女優B", "女優C"],
-    cover: "https://pics.dmm.co.jp/digital/video/1mad00001/1mad00001pl.jpg",
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1mad00001/",
-    static: true,
+    cover: "/api/proxy?url=https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
+    url: "https://www.dmm.co.jp/digital/video/-/detail/=/cid=1mad00001/",
+    static: true
   },
   {
     id: "nostal_2008",
@@ -28,8 +28,8 @@ export const retroData = [
     maker: "Attackers",
     category: ["人妻", "NTR"],
     people: ["女優D"],
-    cover: "https://pics.dmm.co.jp/digital/video/1atk00001/1atk00001pl.jpg",
-    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1atk00001/",
-    static: true,
+    cover: "/api/proxy?url=https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
+    url: "https://www.dmm.co.jp/digital/video/-/detail/=/cid=1atk00001/",
+    static: true
   }
 ];
