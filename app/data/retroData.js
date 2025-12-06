@@ -7,7 +7,8 @@ export const retroData = [
     category: ["熟女", "ドラマ"],
     people: ["女優A"],
     cover: "/api/proxy?url=https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
-    url: "https://www.dmm.co.jp/digital/video/-/detail/=/cid=1sod00001/",
+    url: "/go/1sod00001",
+
     static: true
   },
   {
@@ -18,7 +19,8 @@ export const retroData = [
     category: ["人妻", "共演"],
     people: ["女優B", "女優C"],
     cover: "/api/proxy?url=https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
-    url: "https://www.dmm.co.jp/digital/video/-/detail/=/cid=1mad00001/",
+   url: "/go/1sod00001",
+
     static: true
   },
   {
@@ -29,7 +31,8 @@ export const retroData = [
     category: ["人妻", "NTR"],
     people: ["女優D"],
     cover: "/api/proxy?url=https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
-    url: "https://www.dmm.co.jp/digital/video/-/detail/=/cid=1atk00001/",
+    url: "/go/1sod00001",
+
     static: true
   }
 ];
