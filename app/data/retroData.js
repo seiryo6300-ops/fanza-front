@@ -1,0 +1,35 @@
+export const fanzaData = [
+  {
+    id: "nostal_2003",
+    title: "懐かし混浴温泉ドラマ特集",
+    year: 2003,
+    maker: "S1",
+    static: true,
+    cover: "https://pics.dmm.co.jp/digital/video/1stars00001/1stars00001pl.jpg",
+    category: ["mature"],
+    people: ["女優A"],
+    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00001/",
+  },
+  {
+    id: "nostal_2005",
+    title: "人妻と巨乳レジェンド共演",
+    year: 2005,
+    maker: "SOD",
+    static: true,
+    cover: "https://pics.dmm.co.jp/digital/video/1stars00002/1stars00002pl.jpg",
+    category: ["mature"],
+    people: ["女優B"],
+    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00002/",
+  },
+  {
+    id: "nostal_2008",
+    title: "若妻NTRベスト",
+    year: 2008,
+    maker: "Madonna",
+    static: true,
+    cover: "https://pics.dmm.co.jp/digital/video/1stars00003/1stars00003pl.jpg",
+    category: ["人妻"],
+    people: ["女優C"],
+    url: "https://www.dmm.co.jp/digital/videoa/-/detail/=/cid=1stars00003/",
+  }
+];
