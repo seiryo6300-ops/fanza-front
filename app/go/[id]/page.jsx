@@ -2,62 +2,67 @@
 import { useEffect, useState } from "react";
 
 export default function Page({ params }) {
-  const { id } = params;
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(false);
+  const { cid } = params;
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!id) return;
-
     async function fetchData() {
       try {
-        const res = await fetch(`/api/search?id=${id}`);
-        const raw = await res.json();
-        console.log("RAW:", raw);
+        const res = await fetch(`/api/search?cid=${cid}`);
+        const data = await res.json();
+        console.log("API DATA:", data);
 
-        // ★ result.items ではなく result.item
-        const item =
-          raw?.result?.item ||
-          raw?.result?.items?.[0] ||
-          null;
-
-        console.log("PARSED:", item);
-
-        if (!item) {
-          setError(true);
+        if (data?.item) {
+          setItem(data.item);
         } else {
-          setData(item);
+          setItem(null);
         }
-      } catch (e) {
-        console.error(e);
-        setError(true);
+      } catch {
+        setItem(null);
       }
+      setLoading(false);
     }
-
     fetchData();
-  }, [id]);
+  }, [cid]);
 
-  if (error) return <h2>データ取得できませんでした</h2>;
-  if (!data) return <h2>読み込み中...</h2>;
+  if (loading) return <p>読み込み中...</p>;
+  if (!item) return <p>データ取得できませんでした</p>;
 
   return (
     <div>
-      <h1>{data.title}</h1>
+      <h1>{item.title}</h1>
 
-      <img
-        src={data.imageURL.large}
-        width="300"
-        alt={data.title}
-      />
+      {/* ジャケット画像 */}
+      {item.imageURL?.large && <img src={item.imageURL.large} width="300" />}
 
-      <h2>サンプル動画</h2>
-      {data.sampleMovieURL?.size_644_480 && (
-        <video controls width="480">
-          <source src={data.sampleMovieURL.size_644_480} type="video/mp4" />
-        </video>
+      <h2>サンプル画像（小）</h2>
+      {item.sampleImageURL?.sample_s?.image?.length > 0 ? (
+        item.sampleImageURL.sample_s.image.map((img, i) => (
+          <img key={i} src={img} width="180" />
+        ))
+      ) : (
+        <p>小サンプル画像なし</p>
       )}
 
-      <a href={data.URL} target="_blank">
+      <h2>サンプル画像（大）</h2>
+      {item.sampleImageURL?.sample_l?.image?.length > 0 ? (
+        item.sampleImageURL.sample_l.image.map((img, i) => (
+          <img key={i} src={img} width="300" />
+        ))
+      ) : (
+        <p>大サンプル画像なし</p>
+      )}
+
+      <h2>サンプル動画</h2>
+      {item.sampleMovieURL?.size_476_306 || item.sampleMovieURL?.size_644_484 ? (
+        <video src={item.sampleMovieURL.size_476_306 ?? item.sampleMovieURL.size_644_484} controls width="480" />
+      ) : (
+        <p>動画なし</p>
+      )}
+
+      <br /><br />
+      <a href={item.URL} target="_blank">
         ▶ FANZAで作品を見る
       </a>
     </div>
