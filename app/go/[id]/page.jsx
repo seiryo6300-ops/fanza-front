@@ -3,32 +3,41 @@ import { useEffect, useState } from "react";
 
 export default function ItemPage({ params }) {
   const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`/api/search?cid=${params.id}`)
       .then(res => res.json())
-      .then(data => setItem(data.result.items[0] || null))
-      .catch(err => console.error("API Error:", err));
+      .then(data => {
+        console.log("API RAW:", data);
+
+        // どちらでも対応（items配列 / item単体）
+        const result =
+          data?.result?.items?.[0] ||
+          data?.result?.item ||
+          null;
+
+        console.log("PARSED:", result);
+
+        setItem(result);
+      })
+      .catch(err => console.error("Fetch Error:", err))
+      .finally(() => setLoading(false));
   }, [params.id]);
 
-  if (!item) return <h2>読み込み中...</h2>;
+  if (loading) return <h2>読み込み中...</h2>;
+  if (!item) return <h2>データ取得できませんでした</h2>;
 
-  console.log("API DATA:", item);
-
-  // 画像データ取得（small / large 仕様）
-  const img = item.imageURL?.large;
-  const smallImages = item.sampleImageURL?.sample_s?.image || [];
-  const largeImages = item.sampleImageURL?.sample_l?.image || [];
-
-  // 動画サンプル
-  const sampleMovie = item.sampleMovieURL?.size_720_480 || null;
+  // 必ず null 回避
+  const img = item?.imageURL?.large || "";
+  const smallImages = item?.sampleImageURL?.sample_s?.image || [];
+  const largeImages = item?.sampleImageURL?.sample_l?.image || [];
+  const sampleMovie = item?.sampleMovieURL?.size_720_480 || null;
 
   return (
     <div style={{ padding: "20px" }}>
-      {/* タイトル */}
-      <h1>{item.title}</h1>
+      <h1>{item.title || "タイトル不明"}</h1>
 
-      {/* ジャケット */}
       {img && (
         <img
           src={img}
@@ -37,33 +46,29 @@ export default function ItemPage({ params }) {
         />
       )}
 
-      {/* サンプル画像（小） */}
       <h2>サンプル画像（小）</h2>
-      {smallImages.length === 0 && <p>小サンプル画像なし</p>}
+      {smallImages.length === 0 && <p>なし</p>}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
         {smallImages.map((src, i) => (
-          <img key={i} src={src} alt="" style={{ width: "180px" }} />
+          <img key={i} src={src} style={{ width: "150px" }} />
         ))}
       </div>
 
-      {/* サンプル画像（大） */}
       <h2>サンプル画像（大）</h2>
-      {largeImages.length === 0 && <p>大サンプル画像なし</p>}
+      {largeImages.length === 0 && <p>なし</p>}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
         {largeImages.map((src, i) => (
-          <img key={i} src={src} alt="" style={{ width: "300px" }} />
+          <img key={i} src={src} style={{ width: "300px" }} />
         ))}
       </div>
 
-      {/* サンプル動画 */}
       <h2>サンプル動画</h2>
       {sampleMovie ? (
         <video controls width="480" src={sampleMovie} />
       ) : (
-        <p>サンプル動画なし</p>
+        <p>無し</p>
       )}
 
-      {/* FANZAへリンク */}
       <p style={{ marginTop: "20px" }}>
         <a href={item.URL} target="_blank" rel="noopener noreferrer">
           ▶ FANZAで作品を見る
